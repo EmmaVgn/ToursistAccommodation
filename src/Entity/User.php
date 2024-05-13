@@ -82,6 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->reviews = new ArrayCollection();
         $this->bookings = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+        $this->images = 'default.jpg';
     }
 
     public function getId(): ?int
@@ -322,6 +323,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $booking->setTraveler(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
