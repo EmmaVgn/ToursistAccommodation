@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: '`add`')]
 class Add
 {
+    use Trait\CreatedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -35,17 +37,14 @@ class Add
     #[ORM\Column]
     private ?int $rooms = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     /**
      * @var Collection<int, Review>
      */
     #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'reviewq')]
     private Collection $reviews;
-
-    #[ORM\Column(length: 255)]
-    private ?string $slug = null;
 
     /**
      * @var Collection<int, Booking>
@@ -71,6 +70,7 @@ class Add
         $this->bookings = new ArrayCollection();
         $this->equipment = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -157,14 +157,14 @@ class Add
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getSlug(): ?string
     {
-        return $this->createdAt;
+        return $this->slug;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setSlug(string $slug): static
     {
-        $this->createdAt = $createdAt;
+        $this->slug = $slug;
 
         return $this;
     }
@@ -195,18 +195,6 @@ class Add
                 $review->setAdds(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $slug;
 
         return $this;
     }

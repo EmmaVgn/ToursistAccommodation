@@ -2,15 +2,16 @@
 
 namespace App\Entity;
 
+use App\Repository\CommentRepository;
 use App\Repository\ReviewRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
 class Review
 {
+    use Trait\CreatedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -26,35 +27,28 @@ class Review
     private ?string $content = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?bool $isValid = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Add $adds = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?User $traveler = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Booking $booking = null;
 
-    /**
-     * @var Collection<int, Booking>
-     */
-    #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'reviews')]
-    private Collection $bookings;
+    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $traveler = null;
 
     public function __construct()
     {
-        $this->bookings = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -93,14 +87,14 @@ class Review
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function isValid(): ?bool
     {
-        return $this->createdAt;
+        return $this->isValid;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setValid(bool $isValid): static
     {
-        $this->createdAt = $createdAt;
+        $this->isValid = $isValid;
 
         return $this;
     }
@@ -117,6 +111,18 @@ class Review
         return $this;
     }
 
+    public function getBooking(): ?Booking
+    {
+        return $this->booking;
+    }
+
+    public function setBooking(?Booking $booking): static
+    {
+        $this->booking = $booking;
+
+        return $this;
+    }
+
     public function getTraveler(): ?User
     {
         return $this->traveler;
@@ -125,36 +131,6 @@ class Review
     public function setTraveler(?User $traveler): static
     {
         $this->traveler = $traveler;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Booking>
-     */
-    public function getBookings(): Collection
-    {
-        return $this->bookings;
-    }
-
-    public function addBooking(Booking $booking): static
-    {
-        if (!$this->bookings->contains($booking)) {
-            $this->bookings->add($booking);
-            $booking->setReviews($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBooking(Booking $booking): static
-    {
-        if ($this->bookings->removeElement($booking)) {
-            // set the owning side to null (unless already changed)
-            if ($booking->getReviews() === $this) {
-                $booking->setReviews(null);
-            }
-        }
 
         return $this;
     }

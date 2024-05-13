@@ -3,12 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\BookingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BookingRepository::class)]
 class Booking
 {
+    use Trait\CreatedAtTrait;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -24,16 +28,31 @@ class Booking
     private ?\DateTimeInterface $checkOut = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?int $occupants = null;
 
     #[ORM\ManyToOne(inversedBy: 'bookings')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $traveler = null;
 
     #[ORM\ManyToOne(inversedBy: 'bookings')]
-    private ?Review $reviews = null;
-
-    #[ORM\ManyToOne(inversedBy: 'bookings')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Add $adds = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Review $review = null;
+
+    /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'booking')]
+    private Collection $reviews;
+
+    public function __construct()
+    {
+        $this->reviews = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -83,14 +102,14 @@ class Booking
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getOccupants(): ?int
     {
-        return $this->createdAt;
+        return $this->occupants;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setOccupants(int $occupants): static
     {
-        $this->createdAt = $createdAt;
+        $this->occupants = $occupants;
 
         return $this;
     }
@@ -107,18 +126,6 @@ class Booking
         return $this;
     }
 
-    public function getReviews(): ?Review
-    {
-        return $this->reviews;
-    }
-
-    public function setReviews(?Review $reviews): static
-    {
-        $this->reviews = $reviews;
-
-        return $this;
-    }
-
     public function getAdds(): ?Add
     {
         return $this->adds;
@@ -129,5 +136,36 @@ class Booking
         $this->adds = $adds;
 
         return $this;
+    }
+
+    public function getReview(): ?Review
+    {
+        return $this->review;
+    }
+
+    public function setReview(Review $review): static
+    {
+        $this->review = $review;
+
+        return $this;
+    }
+
+    // Convert checkin date to string
+    public function getCheckInString(): string
+    {
+        return $this->getCheckIn()->format('d/m/Y');
+    }
+
+    // Convert checkout date to string
+    public function getCheckOutString(): string
+    {
+        return $this->getCheckOut()->format('d/m/Y');
+    }
+
+    // Get the number of days between checkin and checkout
+    public function getDays(): int
+    {
+        $diff = $this->getCheckIn()->diff($this->getCheckOut());
+        return $diff->days;
     }
 }
