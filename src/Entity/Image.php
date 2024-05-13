@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
+#[Vich\Uploadable]
 class Image
 {
     #[ORM\Id]
@@ -13,13 +16,17 @@ class Image
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[Vich\UploadableField(mapping: 'ads', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
 
-    #[ORM\Column]
+    #[ORM\Column(length: 255)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Add $adds = null;
 
     public function getId(): ?int
@@ -27,21 +34,46 @@ class Image
         return $this->id;
     }
 
-    public function setId(int $id): static
+        /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
     {
-        $this->id = $id;
+        $this->imageFile = $imageFile;
 
-        return $this;
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updateAt = new \DateTimeImmutable();
+        }
     }
 
-    public function getName(): ?string
+    public function getImageFile(): ?File
     {
-        return $this->name;
+        return $this->imageFile;
     }
 
-    public function setName(string $name): static
+
+
+    public function getImageName(): ?string
     {
-        $this->name = $name;
+        return $this->imageName;
+    }
+
+    public function __toString(): string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(string $imageName): static
+    {
+        $this->imageName = $imageName;
 
         return $this;
     }
@@ -49,13 +81,6 @@ class Image
     public function getUpdateAt(): ?\DateTimeImmutable
     {
         return $this->updateAt;
-    }
-
-    public function setUpdateAt(\DateTimeImmutable $updateAt): static
-    {
-        $this->updateAt = $updateAt;
-
-        return $this;
     }
 
     public function getAdds(): ?Add

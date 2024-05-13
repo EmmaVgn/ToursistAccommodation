@@ -61,7 +61,7 @@ class Add
     /**
      * @var Collection<int, Image>
      */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'adds')]
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'ad', orphanRemoval: true, cascade: ['persist'])]
     private Collection $images;
 
     public function __construct()
