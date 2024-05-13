@@ -18,10 +18,14 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
+
 class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
+    private EmailVerifier $emailVerifier;
+
+    public function __construct(EmailVerifier $emailVerifier)
     {
+        $this->emailVerifier = $emailVerifier;
     }
 
     #[Route('/inscription', name: 'register')]
@@ -58,7 +62,7 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form,
+            'registrationForm' => $form->createView(),
         ]);
     }
 
@@ -76,7 +80,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
+       
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('homepage');

@@ -15,4 +15,13 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+        // Test route for designing the confirmation email
+        #[Route('/email', name: 'email')]
+        public function email(): Response
+        {
+            return $this->render('registration/confirmation_email.html.twig', [
+                "signedUrl" => "https://example.com/signed-url",
+            ]);
+        }
 }
