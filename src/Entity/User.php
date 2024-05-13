@@ -58,9 +58,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $images = null;
 
     #[ORM\Column]
-    private ?bool $isVerified = null;
+    private ?bool $isVerified = false;
 
-    #[ORM\Column(length: 13)]
+    #[ORM\Column(length: 60)]
     private ?string $phone = null;
 
     /**
