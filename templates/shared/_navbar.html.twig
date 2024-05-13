@@ -22,21 +22,22 @@
 				</li>
 			</ul>
 			<ul class="navbar-nav">
+				{% if app.user %}
+					<li class="nav-item">
+						<a href="" class="btn btn-info me-3">Mon compte</a>
+					</li>
 
-				<li class="nav-item">
-					<a href="" class="btn btn-info me-3">Mon compte</a>
-				</li>
-
-				<li class="nav-item">
-					<a href="#" class="btn btn-dark">Me déconnecter</a>
-				</li>
-
-				<li class="nav-item">
-					<a href="#" class="btn btn-success">Me connecter</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="btn btn-danger">M'inscrire</a>
-				</li>
+					<li class="nav-item">
+						<a href="{{ path('security_logout') }}" class="btn btn-dark">Me déconnecter</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a href="{{ path('security_login') }}" class="btn btn-success">Me connecter</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ path('register') }}" class="btn btn-danger">M'inscrire'</a>
+					</li>
+				{% endif %}
 
 
 			</div>
