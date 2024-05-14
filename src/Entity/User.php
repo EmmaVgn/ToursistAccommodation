@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $images = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'boolean')]
     private ?bool $isVerified = false;
 
     #[ORM\Column(length: 60)]
@@ -243,7 +243,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isVerified(): ?bool
+    public function getIsVerified(): ?bool
     {
         return $this->isVerified;
     }
@@ -323,13 +323,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $booking->setTraveler(null);
             }
         }
-
-        return $this;
-    }
-
-    public function setVerified(bool $isVerified): static
-    {
-        $this->isVerified = $isVerified;
 
         return $this;
     }
