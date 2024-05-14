@@ -51,7 +51,7 @@ class Booking
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

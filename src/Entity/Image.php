@@ -19,7 +19,7 @@ class Image
     #[Vich\UploadableField(mapping: 'ads', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageName = null;
 
     #[ORM\Column(nullable: true)]
