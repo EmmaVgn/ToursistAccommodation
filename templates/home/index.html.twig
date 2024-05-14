@@ -1,20 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Paris
+{% block title %}Bienvenue dans nos hébergements
 {% endblock %}
 
-{% set paragraph = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae reprehenderit consequatur et repellat earum, ex provident illo iure! Aliquam vitae enim eligendi in quidem ullam tempora beatae est quae animi!' %}
-
 {% block body %}
-	<div class="container-fluid vh-100 bg-body-tertiary">
-		<div class="d-flex justify-content-center align-items-center pt-5">
-			<div class="card col-4 text-center rounded-4 shadow-lg p-4 d-flex align-items-center justify-content-center">
-				<img src={{ asset('assets/images/row-houses-384596_640.jpg') }} width="200" class="border-2 border-light rounded-circle shadow">
-				<h1>Paris</h1>
-				<p>{{ paragraph|slice(1,150) }}...</p>
-				<p>&copy;
-					{{ "now"|date("Y") }}</p>
+	<div class="jumbotron">
+		<h1 class="display-4">Hello, world!</h1>
+		<p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+		<hr class="my-4">
+		<p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+		<p class="lead">
+			<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+		</p>
+	</div>
+	<h2>Nos meilleures réservations</h2>
+	<div class="row">
+		<div class="col-lg-4 col-md-4">
+			<div class="card border-dark mb-3" style="max-width: 20rem;">
+				<div class="card-header">3 ch,
+					<strong>49€ / nuit
+					</strong>
+					<br>
+					<small>Pas encore noté</small>
+				</div>
+				<img src="https://placehold.jp/600x400.png" alt="">
+				<div class="card-body">
+					<h4 class="card-title">Très belle villa</h4>
+					<p class="card-text">Lorem Ipsum</p>
+					<a href="#" class="btn btn-secondary">En savoir plus</a>
+				</div>
 			</div>
 		</div>
+		<div class="col-lg-4 col-md-4">
+			<div class="card border-dark mb-3" style="max-width: 20rem;">
+				<div class="card-header">3 ch,
+					<strong>49€ / nuit
+					</strong>
+					<br>
+					<small>Pas encore noté</small>
+				</div>
+				<img src="https://placehold.jp/600x400.png" alt="">
+				<div class="card-body">
+					<h4 class="card-title">Très belle villa</h4>
+					<p class="card-text">Lorem Ipsum</p>
+					<a href="#" class="btn btn-secondary">En savoir plus</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4">
+			<div class="card border-dark mb-3" style="max-width: 20rem;">
+				<div class="card-header">3 ch,
+					<strong>49€ / nuit
+					</strong>
+					<br>
+					<small>Pas encore noté</small>
+				</div>
+				<img src="https://placehold.jp/600x400.png" alt="">
+				<div class="card-body">
+					<h4 class="card-title">Très belle villa</h4>
+					<p class="card-text">Lorem Ipsum</p>
+					<a href="#" class="btn btn-secondary">En savoir plus</a>
+				</div>
+			</div>
+		</div>
+
 	</div>
 {% endblock %}
