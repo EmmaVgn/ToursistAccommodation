@@ -30,7 +30,11 @@
 		{{ encore_entry_script_tags('app') }}
 	</head>
 	<body>
-		{% include "shared/_navbar.html.twig" %}
+		{% if is_granted('ROLE_ADMIN') %}
+			{% include 'shared/_navbar_admin.html.twig' %}
+		{% else %}
+			{% include 'shared/_navbar_client.html.twig' %}
+		{% endif %}
 
 		<div class="container pt-5">
 			{% include "shared/_flash.html.twig" %}

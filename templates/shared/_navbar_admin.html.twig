@@ -24,7 +24,7 @@
 			<ul class="navbar-nav">
 				{% if app.user %}
 					<li class="nav-item">
-						<a href="" class="btn btn-info me-3">Mon compte</a>
+						<a href="{{ path('admin') }}" class="btn btn-info me-3">Administration</a>
 					</li>
 					<li class="nav-item">
 						<a href="{{ path('security_logout') }}" class="btn btn-dark">Me déconnecter</a>
