@@ -5,4 +5,11 @@
 
 {% block body %}
 	<h1>Liste de nos hébergements</h1>
+	<div class="row">
+		{% for add in adds	%}
+			{% include "add/_add.html.twig" %}
+
+		{% endfor %}
+
+	</div>
 {% endblock %}

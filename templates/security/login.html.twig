@@ -19,12 +19,12 @@
 			{% if app.user %}
 				<div class="alert alert-info text-center col-6 m-auto" role="alert">
 					<h2>
-						You are already logged in as
+						Vous êtes connecté en tant que
 						{{ app.user.userIdentifier }}
 					</h2>
 					<div class="text-center mt-5">
-						<a href="/" class="btn btn-dark">Back to homepage</a>
-						<a href="{{ path('app_logout') }}" class="btn btn-outline-danger">Logout</a>
+						<a href="/" class="btn btn-dark">Retour à la page d'accueil</a>
+						<a href="{{ path('security_logout') }}" class="btn btn-outline-danger">se déconnecter</a>
 					</div>
 				</div>
 			{% else %}
@@ -41,16 +41,21 @@
 					</div>
 					<div class="form-floating mb-2">
 						<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-						<label for="inputPassword">Password</label>
+						<label for="inputPassword">Mot de passe</label>
 					</div>
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-					<button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+					<button class="btn btn-primary w-100 py-2" type="submit">Se connecter</button>
 				</form>
 
 				<div class="text-center mt-3">
-					<p>Not have an account ?
-						<a href={{ path('register') }} class="text-decoration-none">Register here</a>
+					<p>Vous n'avez pas de compte ?
+						<a href={{ path('register') }} class="text-decoration-none">S'enregistrer ici</a>
+					</p>
+				</div>
+				<div class="text-center mt-3">
+					<p>Mot de passe oublié?
+						<a href={{ path('forgotten_password') }} class="text-decoration-none">Réinitialiser ici</a>
 					</p>
 				</div>
 			{% endif %}

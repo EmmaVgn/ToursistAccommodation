@@ -59,6 +59,8 @@ class SecurityController extends AbstractController
                 // On génère un token de réinitialisation
                 $token = $tokenGenerator->generateToken();
                 $user->setResetToken($token);
+
+                
                 $entityManager->persist($user);
                 $entityManager->flush();
 

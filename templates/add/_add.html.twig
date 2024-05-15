@@ -1,0 +1,17 @@
+<div class="col-lg-4 col-md-4">
+	<div class="card border-dark mb-3" style="max-width: 20rem;padding: 0;">
+		<div class="card-header">{{ add.rooms }}
+			chambres,
+			<strong>{{ add.price | amount }}
+				/ nuit</strong>
+			<br>
+			<small>Pas encore noté</small>
+		</div>
+
+		<div class="card-body">
+			<h4 class="card-title">{{ add.title }}</h4>
+			<p class="card-text">{{ add.introduction|raw|nl2br|striptags|u.truncate(100, '...') }}</p>
+			<a href="{{ path('add_details', {'slug': add.slug}) }}" class="btn btn-secondary">En savoir plus</a>
+		</div>
+	</div>
+</div>

@@ -1,3 +1,17 @@
 body {
-    background-color: lightgray;
+  background-color: lightgray;
+}
+
+.navbar {
+  text-align: center; /* Pour centrer horizontalement */
+}
+
+.nav-item {
+  display: inline-block;
+  margin: 0 10px; /* Espacement entre les éléments de la navbar */
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: #333; /* Couleur du texte des liens */
 }

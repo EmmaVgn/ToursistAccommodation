@@ -4,65 +4,21 @@
 {% endblock %}
 
 {% block body %}
-	<div class="jumbotron">
-		<h1 class="display-4">Hello, world!</h1>
-		<p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-		<hr class="my-4">
-		<p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-		<p class="lead">
-			<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-		</p>
+	<div class="slider-container" style="width:100%">
+		<div class="slide">
+			<img src="/assets/images/sea-2105702_1280.jpg" alt="" class="slide-image">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum deserunt est praesentium eius, possimus in. 
+																															Impedit laudantium earum nobis laboriosam sed qui itaque animi corporis quam maiores? Doloremque, ea earum?</p>
+		</div>
 	</div>
-	<h2>Nos meilleures réservations</h2>
-	<div class="row">
-		<div class="col-lg-4 col-md-4">
-			<div class="card border-dark mb-3" style="max-width: 20rem;">
-				<div class="card-header">3 ch,
-					<strong>49€ / nuit
-					</strong>
-					<br>
-					<small>Pas encore noté</small>
-				</div>
-				<img src="https://placehold.jp/600x400.png" alt="">
-				<div class="card-body">
-					<h4 class="card-title">Très belle villa</h4>
-					<p class="card-text">Lorem Ipsum</p>
-					<a href="#" class="btn btn-secondary">En savoir plus</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-4">
-			<div class="card border-dark mb-3" style="max-width: 20rem;">
-				<div class="card-header">3 ch,
-					<strong>49€ / nuit
-					</strong>
-					<br>
-					<small>Pas encore noté</small>
-				</div>
-				<img src="https://placehold.jp/600x400.png" alt="">
-				<div class="card-body">
-					<h4 class="card-title">Très belle villa</h4>
-					<p class="card-text">Lorem Ipsum</p>
-					<a href="#" class="btn btn-secondary">En savoir plus</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-4">
-			<div class="card border-dark mb-3" style="max-width: 20rem;">
-				<div class="card-header">3 ch,
-					<strong>49€ / nuit
-					</strong>
-					<br>
-					<small>Pas encore noté</small>
-				</div>
-				<img src="https://placehold.jp/600x400.png" alt="">
-				<div class="card-body">
-					<h4 class="card-title">Très belle villa</h4>
-					<p class="card-text">Lorem Ipsum</p>
-					<a href="#" class="btn btn-secondary">En savoir plus</a>
-				</div>
-			</div>
-		</div>
 
+	<div class="jumbotron">
+		<h1 class="display-4">Bienvenue aux appartements de Noam</h1>
+		<p class="lead">Venez découvrir le paradis et profiez de nos appartements locatifs au nord de l'ile Maurice.</p>
+		<hr class="my-4">
+		<p>Vous serez submergée par l'emplacement et la beauté de l'ile.</p>
+		<p class="lead">
+			<a class="btn btn-secondary btn-lg" href={{ path('add_index') }} role=" button">Learn more"</a>
+		</p>
 	</div>
 {% endblock %}
