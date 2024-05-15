@@ -12,7 +12,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Nos logements</a>
+					<a class="nav-link" href="{{ path('add_index') }}">Nos logements</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#">Que visiter</a>
@@ -26,7 +26,6 @@
 					<li class="nav-item">
 						<a href="" class="btn btn-info me-3">Mon compte</a>
 					</li>
-
 					<li class="nav-item">
 						<a href="{{ path('security_logout') }}" class="btn btn-dark">Me déconnecter</a>
 					</li>
@@ -35,7 +34,7 @@
 						<a href="{{ path('security_login') }}" class="btn btn-success">Me connecter</a>
 					</li>
 					<li class="nav-item">
-						<a href="{{ path('register') }}" class="btn btn-danger">M'inscrire'</a>
+						<a href="{{ path('register') }}" class="btn btn-danger">M'inscrire</a>
 					</li>
 				{% endif %}
 
