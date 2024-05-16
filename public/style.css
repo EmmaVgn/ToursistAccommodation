@@ -1,0 +1,73 @@
+a {
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.navbar {
+  text-align: center; /* Pour centrer horizontalement */
+}
+
+.navbar-nav {
+  display: inline-block;
+  padding: 0;
+}
+
+.nav-item {
+  display: inline-block;
+  margin: 0 10px; /* Espacement entre les éléments de la navbar */
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: #333; /* Couleur du texte des liens */
+}
+
+.fusion-secondary-header {
+  --header_top_bg_color: #3e3e3e;
+  --snav_color: #747474;
+}
+
+.fusion-secondary-header {
+  color: #747474;
+  font-size: 12px;
+  height: 30px;
+  background-color: #3e3e3e;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+@media only screen and (max-width: 768px) {
+  .fusion-secondary-header {
+    display: none;
+  }
+}
+
+.slider-container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Remplir l'espace de la diapositive avec l'image */
+}

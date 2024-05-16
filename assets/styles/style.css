@@ -1,0 +1,43 @@
+body {
+  background-color: lightgray;
+}
+
+.navbar {
+  text-align: center; /* Pour centrer horizontalement */
+}
+
+.nav-item {
+  display: inline-block;
+  margin: 0 10px; /* Espacement entre les éléments de la navbar */
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: #333; /* Couleur du texte des liens */
+}
+
+@media screen and (max-width: 768px) {
+  .fusion-secondary-header {
+    display: block;
+
+    margin: 10px 0; /* Espacement entre les éléments de la navbar */
+  }
+}
+
+.fusion-secondary-header {
+  --header_top_bg_color: #3e3e3e;
+  --snav_color: #747474;
+}
+
+.fusion-secondary-header {
+  color: #747474;
+  font-size: 12px;
+}
+
+.fusion-secondary-header {
+  border-bottom: 1px solid transparent;
+  background-color: #3e3e3e;
+}
+.fusion-secondary-header {
+  border: none !important;
+}

@@ -11,34 +11,48 @@
 						<span class="visually-hidden">(current)</span>
 					</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('add_index') }}">Nos logements</a>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="{{ path('add_index') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Nos logements
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a class="dropdown-item" href="#">La petite maison</a>
+						</li>
+					</li>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('booking') }}">Tarifs et réservations</a>
+				<li>
+					<a class="dropdown-item" href="#">La périgourdine</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('contact_index') }}">Contact</a>
+				<li>
+					<a class="dropdown-item" href="#">La castille</a>
 				</li>
 			</ul>
-			<ul class="navbar-nav">
-				{% if app.user %}
-					<li class="nav-item">
-						<a href="{{ path('admin') }}" class="btn btn-info me-3">Administration</a>
-					</li>
-					<li class="nav-item">
-						<a href="{{ path('security_logout') }}" class="btn btn-dark">Me déconnecter</a>
-					</li>
-				{% else %}
-					<li class="nav-item">
-						<a href="{{ path('security_login') }}" class="btn btn-success">Me connecter</a>
-					</li>
-					<li class="nav-item">
-						<a href="{{ path('register') }}" class="btn btn-danger">M'inscrire</a>
-					</li>
-				{% endif %}
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('booking') }}">Tarifs et réservations</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('contact_index') }}">Contact</a>
+		</li>
+	</ul>
+	<ul class="navbar-nav">
+		{% if app.user %}
+			<li class="nav-item">
+				<a href="{{ path('admin') }}" class="btn btn-info me-3">Administration</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{ path('security_logout') }}" class="btn btn-dark">Me déconnecter</a>
+			</li>
+		{% else %}
+			<li class="nav-item">
+				<a href="{{ path('security_login') }}" class="btn btn-success">Me connecter</a>
+			</li>
+			<li class="nav-item">
+				<a href="{{ path('register') }}" class="btn btn-danger">M'inscrire</a>
+			</li>
+		{% endif %}
 
 
-			</div>
-		</div>
-	</nav>
+	</div>
+</div></nav>
