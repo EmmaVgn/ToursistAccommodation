@@ -1,66 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sign in
-{% endblock %}
-
-{% block stylesheets %}
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-{% endblock %}
-
-{% block javascripts %}
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+{% block title %}Connexion
 {% endblock %}
 
 {% block body %}
-	<div class="container vh-90 d-flex align-items-center">
+	<form method="post">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
 
-		<div class="form-signing w-100 m-auto">
+		{% if app.user %}
+			<div class="mb-3">
+				Vous êtes connecté(e) comme
+				{{ app.user.userIdentifier }},
+				<a href="{{ path('app_logout') }}">Me déconnecter</a>
+			</div>
+		{% endif %}
 
-			{% if app.user %}
-				<div class="alert alert-info text-center col-6 m-auto" role="alert">
-					<h2>
-						Vous êtes connecté en tant que
-						{{ app.user.userIdentifier }}
-					</h2>
-					<div class="text-center mt-5">
-						<a href="/" class="btn btn-dark">Retour à la page d'accueil</a>
-						<a href="{{ path('security_logout') }}" class="btn btn-outline-danger">se déconnecter</a>
-					</div>
-				</div>
-			{% else %}
-				<h1 class="h3 mb-3 fw-normal text-center">Sign in</h1>
-
-				<form method="post" class="col-4 m-auto">
-					{% if error %}
-						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-					{% endif %}
-
-					<div class="form-floating mb-2">
-						<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-						<label for="inputEmail">Email</label>
-					</div>
-					<div class="form-floating mb-2">
-						<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-						<label for="inputPassword">Mot de passe</label>
-					</div>
-					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-					<button class="btn btn-primary w-100 py-2" type="submit">Se connecter</button>
-				</form>
-
-				<div class="text-center mt-3">
-					<p>Vous n'avez pas de compte ?
-						<a href={{ path('register') }} class="text-decoration-none">S'enregistrer ici</a>
-					</p>
-				</div>
-				<div class="text-center mt-3">
-					<p>Mot de passe oublié?
-						<a href={{ path('forgotten_password') }} class="text-decoration-none">Réinitialiser ici</a>
-					</p>
-				</div>
-			{% endif %}
-
-			<p class="mt-5 mb-3 text-body-secondary text-center">&copy;
-				{{ 'now'|date('Y') }}</p>
+		<h1>Connexion</h1>
+		<div class="form-group mb-3">
+			<label for="inputEmail">Votre email :</label>
+			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="e.g. picard@starfleet.org">
 		</div>
-	{% endblock %}
+		<div class="form-group mb-3">
+			<label for="inputPassword">Votre mot de passe :</label>
+			<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="••••••••">
+		</div>
+
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+		<div class="checkbox mb-3 mt-3">
+			<label>
+				<input type="checkbox" name="_remember_me">
+				Se souvenir de moi
+			</label>
+		</div>
+
+		<button class="btn btn-secondary mt-3" type="submit">
+			Se connecter
+		</button>
+		<p>
+			Pas encore inscrit(e) ?
+			<a href="{{ path('register') }}">S'inscrire</a>
+
+		</p>
+		<a href=" ">Mot de passe oublié ?</a>
+	</form>
+{% endblock %}
