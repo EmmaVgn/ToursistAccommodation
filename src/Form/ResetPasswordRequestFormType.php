@@ -3,9 +3,10 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class ResetPasswordRequestFormType extends AbstractType
 {
@@ -13,13 +14,17 @@ class ResetPasswordRequestFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'Entrez votre email',
+                'label' => 'Votre email :',
+                'label_attr' => [
+                    'class' => 'lh-label fw-medium'
+                ],
+                'required' => true,
                 'attr' => [
-                    'placeholder' => 'exemple@email.fr',
-                    'class' => 'form-control'
-                ]
-            ])
-        ;
+                    'placeholder' => 'e.g. picard@starfleet.org',
+                    'class' => 'form-control-login'
+                ],
+                'constraints' => new Email()
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -65,6 +65,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 60)]
     private ?string $phone = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resetToken = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $createdTokenAt = null;
+
 
     /**
      * @var Collection<int, Review>
@@ -264,6 +270,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhone(string $phone): static
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): static
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    public function getCreatedTokenAt(): ?\DateTimeImmutable
+    {
+        return $this->createdTokenAt;
+    }
+
+    public function setCreatedTokenAt(?\DateTimeImmutable $createdTokenAt): static
+    {
+        $this->createdTokenAt = $createdTokenAt;
 
         return $this;
     }
