@@ -268,7 +268,7 @@ class Add
     {
         if (!$this->images->contains($image)) {
             $this->images->add($image);
-            $image->setAdds($this);
+            $image->setAdd($this);
         }
 
         return $this;
@@ -278,8 +278,8 @@ class Add
     {
         if ($this->images->removeElement($image)) {
             // set the owning side to null (unless already changed)
-            if ($image->getAdds() === $this) {
-                $image->setAdds(null);
+            if ($image->getAdd() === $this) {
+                $image->setAdd(null);
             }
         }
 

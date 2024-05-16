@@ -7,10 +7,14 @@
 			<br>
 			<small>Pas encore noté</small>
 		</div>
-
+		{% if not add.images is empty %}
+			<img src="{{ vich_uploader_asset(add.images.first, 'imageFile') }}" alt="{{ add.title }}" class="img-fluid">
+		{% else %}
+			<img src="{{ asset('assets/img/default-img.jpg') }}" class="img-fluid" alt="Default Image">
+		{% endif %}
 		<div class="card-body">
 			<h4 class="card-title">{{ add.title }}</h4>
-			<p class="card-text">{{ add.introduction|raw|nl2br|striptags|u.truncate(100, '...') }}</p>
+			<p class="card-text">{{ add.description|raw|nl2br|striptags|u.truncate(100, '...') }}</p>
 			<a href="{{ path('add_details', {'slug': add.slug}) }}" class="btn btn-secondary">En savoir plus</a>
 		</div>
 	</div>

@@ -16,7 +16,7 @@ class Image
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Vich\UploadableField(mapping: 'ads', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'adds', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -27,7 +27,7 @@ class Image
 
     #[ORM\ManyToOne(inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Add $adds = null;
+    private ?Add $add = null;
 
     public function getId(): ?int
     {
@@ -60,7 +60,6 @@ class Image
     }
 
 
-
     public function getImageName(): ?string
     {
         return $this->imageName;
@@ -83,14 +82,14 @@ class Image
         return $this->updateAt;
     }
 
-    public function getAdds(): ?Add
+    public function getAdd(): ?Add
     {
-        return $this->adds;
+        return $this->add;
     }
 
-    public function setAdds(?Add $adds): static
+    public function setAdd(?Add $add): static
     {
-        $this->adds = $adds;
+        $this->add = $add;
 
         return $this;
     }
