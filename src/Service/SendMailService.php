@@ -8,7 +8,9 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class SendMailService
 {
-    private $mailer;
+    protected $mailer;
+    protected $security;
+
 
     public function __construct(MailerInterface $mailer)
     {
@@ -22,12 +24,11 @@ class SendMailService
         string $subject,
         string $template,
         array $context
-    ): void
+    )
     {
         //On crée le mail
         $email = (new TemplatedEmail());
         $email->from(new Address($from, $name))
-            ->from($from)
             ->to($to)
             ->subject($subject)
             ->htmlTemplate("emails/$template.html.twig")
