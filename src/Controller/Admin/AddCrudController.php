@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Add;
 use App\Form\AddImageFormType;
+use Symfony\Component\Intl\Countries;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
@@ -43,6 +45,7 @@ class AddCrudController extends AbstractCrudController
                 ->setFormTypeOption('divisor', 100),
             NumberField::new('capacity', 'Capacité du logement')->setNumDecimals(0),
             NumberField::new('rooms', 'Nombre de chambre')->setNumDecimals(0),
+            NumberField::new('beds', 'Nombre de lits')->setNumDecimals(0),
             TextField::new('slug', 'Slug de l\'annonce'),
             CollectionField::new('images')
                 ->setEntryType(AddImageFormType::class)
@@ -53,6 +56,8 @@ class AddCrudController extends AbstractCrudController
             TextEditorField::new('description', 'Contenu de l\'annonce')->hideOnIndex(),
         ];
     }
+
+
 
     
 }

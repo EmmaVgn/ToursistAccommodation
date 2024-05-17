@@ -30,7 +30,7 @@
 			</ul>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="{{ path('booking') }}">Tarifs et réservations</a>
+			<a class="nav-link" href="{{ path('booking_page') }}">Tarifs et réservations</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="{{ path('contact_index') }}">Contact</a>
@@ -39,7 +39,10 @@
 	<ul class="navbar-nav">
 		{% if app.user %}
 			<li class="nav-item">
-				<a href="{{ path('profile_index') }}" class="btn btn-info me-3">Mon compte</a>
+				<a href="" class="btn btn-info me-3">Mon compte</a>
+			</li>
+			<li class="py-2 px-2">
+				<a class="dropdown-item dropdown-user" href="{{path('booking_index')}}">Voyages</a>
 			</li>
 			<li class="nav-item">
 				<a href="{{ path('security_logout') }}" class="btn btn-dark">Me déconnecter</a>

@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Add;
+use App\Entity\Booking;
+use App\Form\BookingFormType;
 use App\Repository\AddRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/hebergement', name: 'add_')]
 class AddController extends AbstractController
@@ -26,6 +28,8 @@ class AddController extends AbstractController
     AddRepository $addRepository,
     $slug ): Response
     {
+        $booking = new Booking;
+        
         $ad = $addRepository->findOneBy([
             'slug' => $slug
         ]);
@@ -34,8 +38,14 @@ class AddController extends AbstractController
             throw $this->createNotFoundException("L'annonce demandée n'existe pas");
         }
 
+        $notAvailableDays = $ad->getNotAvailableDays();
+
+        $form = $this->createForm(BookingFormType::class, $booking);
+
         return $this->render('add/show.html.twig', [
-            'add' => $add
+            'add' => $add,
+            'form' => $form->createView(),
+            'notAvailableDays' => $notAvailableDays,
         ]);
     }
 }

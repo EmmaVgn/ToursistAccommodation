@@ -8,10 +8,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class BookingController extends AbstractController
 {
-    #[Route('/booking', name: 'booking')]
+    #[Route('/tarif', name: 'booking_page')]
     public function index(): Response
     {
-        return $this->render('booking/index.html.twig', [
+        return $this->render('booking/tarif.html.twig', [
             'controller_name' => 'BookingController',
         ]);
     }

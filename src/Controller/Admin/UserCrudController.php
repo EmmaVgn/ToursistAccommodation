@@ -6,13 +6,10 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class UserCrudController extends AbstractCrudController
@@ -61,7 +58,7 @@ class UserCrudController extends AbstractCrudController
             TelephoneField::new('phone', 'Téléphone')
                 ->setFormTypeOptions(['attr' => ['placeholder' => 'Téléphone de l\'utilisateur']])
                 ->setColumns(6),
-            BooleanField::new('isVerified', 'Utilisateur vérifié'),
+          
             FormField::addFieldset('Modification du mot de passe'),
             TextField::new('plainPassword', 'Mot de passe :')
                 ->onlyWhenCreating()->setRequired(true)
@@ -92,10 +89,6 @@ class UserCrudController extends AbstractCrudController
         parent::updateEntity($entityManager, $entityInstance);
     }
 
-    public function configureFilters(Filters $filters): Filters
-    {
-        return parent::configureFilters($filters)
-            ->add(BooleanFilter::new('isVerified')->setFormTypeOption('expanded', false));
-    }
+
 
 }

@@ -37,13 +37,20 @@ class Add
     #[ORM\Column]
     private ?int $rooms = null;
 
+    #[ORM\Column]
+    private ?int $beds = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
+
+
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
     /**
      * @var Collection<int, Review>
      */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'reviewq')]
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'reviews')]
     private Collection $reviews;
 
     /**
@@ -71,6 +78,33 @@ class Add
         $this->equipment = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+    }
+
+        /**
+     * Permet d'obtenir un tableau des jours qui ne sont pas disponibles pour cette annonce
+     *
+     * @return array Un tableau d'objets DateTimeImmutable représentant les jours d'occupation
+     */
+    public function getNotAvailableDays()
+    {
+        $notAvailableDays = [];
+
+        foreach ($this->bookings as $booking) {
+            // Calculer les jours qui se trouvent entre la date d'arrivée et de départ
+            $resultat = range(
+                $booking->getCheckIn()->getTimestamp(),
+                $booking->getcheckOut()->getTimestamp(),
+                24 * 60 * 60
+            );
+
+            $days = array_map(function($dayTimestamp) {
+                return new \DateTimeImmutable(date('Y-m-d', $dayTimestamp));
+            }, $resultat);
+
+            $notAvailableDays = array_merge($notAvailableDays, $days);
+        }
+
+        return $notAvailableDays;
     }
 
     public function getId(): ?int
@@ -153,6 +187,30 @@ class Add
     public function setRooms(int $rooms): static
     {
         $this->rooms = $rooms;
+
+        return $this;
+    }
+
+    public function getBeds(): ?int
+    {
+        return $this->beds;
+    }
+
+    public function setBeds(int $beds): static
+    {
+        $this->beds = $beds;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): static
+    {
+        $this->city = $city;
 
         return $this;
     }
