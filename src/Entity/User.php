@@ -231,6 +231,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         return $this;
     }
 
+    /**
+     * Retourne le nom complet de l'utilisateur
+     *
+     * @return string
+     */
+    public function getFullname(): string
+    {
+        return "{$this->firstname} {$this->lastname}";
+    }
+
     public function getAddress(): ?string
     {
         return $this->address;
