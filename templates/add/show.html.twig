@@ -70,7 +70,7 @@
 						{{ form_row(form.checkOut) }}
 						<div class="text-center">Aucun montant ne vous sera débité pour le moment</div>
 					</p>
-					<button type="submit" class="btn btn-secondary w-100">Je réserve !</button>
+					<button type="submit" id="submit-btn" class="btn btn-secondary w-100">Je réserve !</button>
 					{{ form_end(form) }}
 					<div class="row mt-3">
 						<div class="d-flex justify-content-between">
@@ -95,7 +95,7 @@
 	<script src="{{ asset('assets/js/flatpickr.min.js') }}"></script>
 	<script>
 		// Transférer les dates non disponibles à JavaScript
-var notAvailableDays = [{% for day in notAvailableDays %}"{{ day|date('d.m.Y') }}",{% endfor %}];
+var notAvailableDays = [];{% if notAvailableDays is defined %}notAvailableDays = [{% for day in notAvailableDays %}"{{ day|date('d.m.Y') }}"{% if not loop.last %},{% endif %}{% endfor %}];{% endif %}
 	</script>
 	<script src="{{ asset('assets/js/main.js') }}" defer></script>
 {% endblock %}

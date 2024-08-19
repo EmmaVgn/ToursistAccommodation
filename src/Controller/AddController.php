@@ -9,6 +9,8 @@ use App\Repository\AddRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 #[Route('/hebergement', name: 'add_')]
 class AddController extends AbstractController
@@ -47,5 +49,22 @@ class AddController extends AbstractController
             'form' => $form->createView(),
             'notAvailableDays' => $notAvailableDays,
         ]);
+    }
+
+    #[Route('/api/ads/{slug}/not-available-days', name: 'ads_not_available_days', methods: ['GET'])]
+    public function getNotAvailableDays($slug, AddRepository $adRepository): JsonResponse
+    {
+        $ad = $adRepository->findOneBy(['slug' => $slug]);
+
+        if (!$ad) {
+            return $this->json(['error' => 'Ad not found'], 404);
+        }
+
+        $notAvailableDays = $ad->getNotAvailableDays();
+        $formattedDays = array_map(function ($day) {
+            return $day->format('d.m.Y');
+        }, $notAvailableDays);
+
+        return $this->json($formattedDays);
     }
 }
